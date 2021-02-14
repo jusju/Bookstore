@@ -2,6 +2,7 @@ package com.example.Bookstore.web;
 
 import com.example.Bookstore.domain.Book;
 import com.example.Bookstore.domain.BookRepository;
+import com.example.Bookstore.domain.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BookController {
     @Autowired
     private BookRepository repository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @RequestMapping(value={"/","/booklist"})
     public String bookList(Model model){
         model.addAttribute("books", repository.findAll());
@@ -22,6 +26,7 @@ public class BookController {
     @RequestMapping("/add")
     public String addBook(Model model){
         model.addAttribute("book", new Book());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "addbook";
     }
     @PostMapping("/save")
@@ -37,6 +42,7 @@ public class BookController {
     @RequestMapping(value = "/edit/{id}")
     public String addStudent(@PathVariable("id") Long bookId, Model model){
         model.addAttribute("book", repository.findById(bookId));
+        model.addAttribute("categories", categoryRepository.findAll());
         return "editbook";
     }
 }
