@@ -1,5 +1,7 @@
 package com.example.Bookstore.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,8 +14,10 @@ public class Book {
     private String isbn;
     private Integer year;
     private Double price;
+    @SuppressWarnings("JpaDataSourceORMInspection")
     @ManyToOne
     @JoinColumn(name = "categoryid")
+    @JsonManagedReference
     private Category category;
 
     public Book(){}
