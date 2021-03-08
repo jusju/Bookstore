@@ -2,6 +2,7 @@ package com.example.Bookstore.domain;
 
 import javax.persistence.*;
 
+@Table(name="usertable")
 @Entity
 public class User {
     @Id
